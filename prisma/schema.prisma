@@ -35,7 +35,7 @@ model Server {
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   members  Member[]
-  chanells Channel[]
+  channels Channel[]
 
   @@index([profileId])
 }
