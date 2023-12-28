@@ -11,6 +11,7 @@ import { Plus, Smile } from "lucide-react";
 
 import axios from "axios";
 import qs from "query-string";
+import { useRouter } from "next/navigation";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -31,6 +32,8 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
     },
   });
 
+  const router = useRouter();
+
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -41,6 +44,8 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
       });
 
       await axios.post(url, values);
+      form.reset();
+      router.refresh();
     } catch (err) {
       console.log(err);
     }
